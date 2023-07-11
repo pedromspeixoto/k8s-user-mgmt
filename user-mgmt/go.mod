@@ -48,6 +48,7 @@ require (
 	github.com/prometheus/procfs v0.10.1 // indirect
 	github.com/stretchr/testify v1.8.2 // indirect
 	github.com/swaggo/files v0.0.0-20220610200504-28940afbdbfe // indirect
+	github.com/unidoc/unipdf/v3 v3.47.0 // indirect
 	go.uber.org/atomic v1.10.0 // indirect
 	go.uber.org/dig v1.15.0 // indirect
 	go.uber.org/goleak v1.2.1 // indirect

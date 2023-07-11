@@ -15,6 +15,16 @@ The purpose of this repository was to create a microservice to manage users whic
 submit one or more files (for the purpose of this repo the file will be fetched from the `dummy-pdf-or-png` service) 
 and saved in the MySQL database.
 
+In the case of a file being a PDF, the file will be checked to ensure it is a valid PDF file. If not,
+the following error is returned:
+
+```json
+{
+  "status_code": 400,
+  "error": "file possibly corrupted. could not open file: missing catalog"
+}
+```
+
 The microservice implemented exposes the following endpoints:
 
 ![Swagger](./assets/swagger.png)
@@ -44,10 +54,10 @@ For the infrastructure to support the application:
 
 For the CI/CD pipeline:
 
-1. Github actions as the CI/CD tool to build and publish the docker image to dockerhub
+1. GitHub actions as the CI/CD tool to build and publish the docker image to dockerhub
 2. ArgoCD as the CD tool to deploy the application to the kubernetes cluster
 
-Please find below a short diagram on the how the CI/CD works for this project.
+Please find below a short diagram on how the CI/CD works for this project.
 
 ![CI/CD](./assets/cicd.png)
 
@@ -104,3 +114,4 @@ make infra-destroy
 4. Add additional custom metrics to prometheus
 5. Use a cloud provider to deploy the application
 6. Separate repo for the ArgoCD application manifests
+7. Deploy Prometheus operator in the k8s cluster

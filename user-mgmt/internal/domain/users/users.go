@@ -17,10 +17,7 @@ import (
 )
 
 const (
-	PdfFileType      = "application/pdf"
-	PngFileType      = "image/png"
-	PdfFileExtension = ".pdf"
-	PngFileExtension = ".png"
+	PdfFileType = "application/pdf"
 )
 
 // UserService provides methods pertaining to managing users.
@@ -118,18 +115,23 @@ func (u *userService) CreateUserFile(ctx context.Context, userId string) (int, *
 		return code, nil, err
 	}
 
-	filecontent, fileType, err := u.FileServingClient.GetRandomFile()
+	fileContent, fileType, err := u.FileServingClient.GetRandomFile()
 	if err != nil {
 		return http.StatusInternalServerError, nil, fmt.Errorf("unexpected error fetching file from client: %v", err)
 	}
 
-	// TODO - if pdf and corrupted return bad request
+	if strings.Contains(fileType, PdfFileType) {
+		err = files.CheckPDFCorrupted(fileContent)
+		if err != nil {
+			return http.StatusBadRequest, nil, fmt.Errorf("file possibly corrupted. could not open file: %v", err)
+		}
+	}
 
 	model := &users.UserFile{
 		UserId:      user.UserId,
 		FileId:      uuid.GenerateUUID(),
 		FileType:    fileType,
-		FileContent: filecontent,
+		FileContent: fileContent,
 	}
 
 	err = u.UserFileRepository.Create(model)
