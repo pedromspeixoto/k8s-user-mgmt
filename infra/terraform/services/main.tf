@@ -36,3 +36,13 @@ resource "helm_release" "argocd_prod_apps" {
   namespace  = kubernetes_namespace.argocd.metadata[0].name
   chart      = "argocd/apps/"
 }
+
+# NGINX Ingress Controller for Kind
+data "kubectl_path_documents" "nginx_ingress_manifests" {
+  pattern  = "${path.module}/nginx/config.yaml"
+}
+
+resource "kubectl_manifest" "nginx_ingress" {
+  count     = length(data.kubectl_path_documents.nginx_ingress_manifests.documents)
+  yaml_body = element(data.kubectl_path_documents.nginx_ingress_manifests.documents, count.index)
+}
