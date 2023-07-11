@@ -10,8 +10,8 @@ service:
   port:
     name: rest
     protocol: TCP
-    externalPort: 80
-    internalPort: 80
+    externalPort: 8080
+    internalPort: 8080
 mysql:
   host: mysql-prod
   db: prod_users
