@@ -2,7 +2,7 @@ appname: dummy-pdf-or-png-service-app
 replicaCount: 2
 image:
   repository: pedropeixoto6/dummy-pdf-or-png-api
-  tag: 1.0.0
+  tag: 539330c4771f412e5bb8b836030d8201d11daa70
   pullPolicy: IfNotPresent
 service:
   name: dummy-pdf-or-png-service
