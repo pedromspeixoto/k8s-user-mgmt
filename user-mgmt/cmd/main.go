@@ -17,7 +17,7 @@ import (
 // @title Users API
 // @version 1.0
 // @description Users API - Manage user and files
-// @BasePath /
+// @BasePath /user-mgmt
 func main() {
 	var cfgFilePath string
 	flag.StringVar(

@@ -26,7 +26,7 @@ func (h metricServiceHandler) Routes() chi.Router {
 	return r
 }
 
-// Get metrics - Retrieve service metrics
+// GetMetrics - Retrieve service metrics
 // @Summary Get service metrics.
 // @Description This API is used to get the service metrics.
 // @Tags metrics
