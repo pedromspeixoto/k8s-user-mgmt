@@ -1,0 +1,19 @@
+appname: user-mgmt-app
+replicaCount: 2
+image:
+  repository: pedropeixoto6/user-mgmt-api
+  tag: 1.0.0
+  pullPolicy: IfNotPresent
+service:
+  name: user-mgmt-service
+  type: NodePort
+  port:
+    name: rest
+    protocol: TCP
+    externalPort: 80
+    internalPort: 80
+mysql:
+  host: mysql
+  db: dev_users
+files:
+  servingUrl: http://dummy-pdf-or-png-service:3000

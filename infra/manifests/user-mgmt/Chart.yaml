@@ -1,0 +1,3 @@
+apiVersion: v2
+name: user-mgmt-chart
+version: 1.0.0

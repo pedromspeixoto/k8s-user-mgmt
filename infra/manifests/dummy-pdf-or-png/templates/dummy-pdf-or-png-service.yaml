@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.service.name }}"
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - name: {{ .Values.service.port.name }}
+      port: {{ .Values.service.port.externalPort }}
+      targetPort: {{ .Values.service.port.internalPort }}
+      protocol: {{ .Values.service.port.protocol }}
+  selector:
+    app: {{ .Values.appname }}

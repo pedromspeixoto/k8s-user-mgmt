@@ -1,0 +1,214 @@
+basePath: /
+definitions:
+  users.UserRequest:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+info:
+  contact: {}
+  description: Users API - Manage user and files
+  title: Users API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      consumes:
+      - application/json
+      description: This API is used to get the environment and dependencies status.
+      produces:
+      - application/json
+      responses: {}
+      summary: Get service status.
+      tags:
+      - health
+  /metrics:
+    get:
+      consumes:
+      - application/json
+      description: This API is used to get the service metrics.
+      produces:
+      - application/json
+      responses: {}
+      summary: Get service metrics.
+      tags:
+      - metrics
+  /v1/users:
+    get:
+      consumes:
+      - application/json
+      description: This API is used to list all users
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Gets all users.
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: This API is used to create a new user
+      parameters:
+      - description: User Payload
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/users.UserRequest'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create a new user.
+      tags:
+      - users
+  /v1/users/{user_id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API is used to delete a user
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete a user.
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: This API is used to get users by id
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get a user.
+      tags:
+      - users
+  /v1/users/{user_id}/files:
+    get:
+      consumes:
+      - application/json
+      description: This API is used to list all user files
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Page
+        in: query
+        name: page
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Gets all user files.
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: This API is used to create a new user file
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Create a new user file.
+      tags:
+      - users
+  /v1/users/{user_id}/files/{file_id}:
+    delete:
+      consumes:
+      - application/json
+      description: This API is used to delete a user file
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: File ID
+        in: path
+        name: file_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete a user file.
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: This API is used to get user files by id
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: File ID
+        in: path
+        name: file_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Get a user file.
+      tags:
+      - users
+  /v1/users/{user_id}/files/{file_id}/download:
+    get:
+      consumes:
+      - application/json
+      description: This API is used to download a user file
+      parameters:
+      - description: User ID
+        in: path
+        name: user_id
+        required: true
+        type: string
+      - description: File ID
+        in: path
+        name: file_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Download a user file.
+      tags:
+      - users
+swagger: "2.0"

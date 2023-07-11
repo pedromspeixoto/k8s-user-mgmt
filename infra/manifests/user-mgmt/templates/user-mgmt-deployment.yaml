@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appname }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.appname }}
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appname }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ .Values.service.name }}-configmap"
+                  key: mysql-host
+            - name: MYSQL_DB_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ .Values.service.name }}-configmap"
+                  key: mysql-db
+            - name: FILE_SERVING_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: "{{ .Values.service.name }}-configmap"
+                  key: file-serving-url
+          ports:
+            - name: {{ .Values.service.port.name }}
+              containerPort: {{ .Values.service.port.internalPort }}

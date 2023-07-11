@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.service.name }}-configmap
+data:
+  service-port: "{{ .Values.service.port.internalPort }}"
+  mysql-host: {{ .Values.mysql.host }}
+  mysql-db: "{{ .Values.mysql.db }}"
+  file-serving-url : "{{ .Values.files.servingUrl }}"

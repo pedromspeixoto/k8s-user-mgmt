@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+    paths: user-mgmt/**
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Push Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v1.1.0
+        with:
+          dockerfile: user-mgmt/Dockerfile
+          path: ./user-mgmt
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+          repository: ${{ secrets.DOCKER_USERNAME }}/user-mgmt-api
+          tags: ${{ github.ref_name }}, ${{ github.sha }}
+
+  update-config:
+    name: Update Kubernetes config
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Update Version
+        run: |
+          git_hash=${{ github.sha }}
+          values_file_path="./infra/manifests/user-mgmt/values.yaml"
+          echo "File path to be replaced: $values_file_path"
+          version=$(cat $values_file_path | grep tag: | awk '{print $2}')
+          sed -i "s/$version/$git_hash/" $values_file_path
+
+      - name: Commit and push changes
+        uses: devops-infra/action-commit-push@v0.3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: automated ci commit - updating service image tag for user-mgmt service

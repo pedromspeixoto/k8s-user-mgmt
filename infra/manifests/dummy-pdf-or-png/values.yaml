@@ -1,0 +1,14 @@
+appname: dummy-pdf-or-png-service-app
+replicaCount: 2
+image:
+  repository: pedropeixoto6/dummy-pdf-or-png-api
+  tag: 1.0.0
+  pullPolicy: IfNotPresent
+service:
+  name: dummy-pdf-or-png-service
+  type: NodePort
+  port:
+    name: rest
+    protocol: TCP
+    externalPort: 3000
+    internalPort: 3000
