@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
 service:
   name: dummy-pdf-or-png-service
-  type: NodePort
+  type: ClusterIP
   port:
     name: rest
     protocol: TCP
