@@ -1,4 +1,4 @@
-basePath: /
+basePath: /user-mgmt
 definitions:
   users.UserRequest:
     properties:

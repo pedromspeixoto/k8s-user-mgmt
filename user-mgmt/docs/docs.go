@@ -325,7 +325,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "",
-	BasePath:         "/",
+	BasePath:         "/user-mgmt",
 	Schemes:          []string{},
 	Title:            "Users API",
 	Description:      "Users API - Manage user and files",
