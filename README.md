@@ -76,6 +76,8 @@ make infra
 kubectl port-forward svc/argocd-server -n argocd 5555:80
 ```
 
+The ArgoCD UI can then be accessed at `http://localhost:5555`.
+
 **_Notes:_**
 
 The default username for ArgoCD is `admin`. The password is auto-generated 

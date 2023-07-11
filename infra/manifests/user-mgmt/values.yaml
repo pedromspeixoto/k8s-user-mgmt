@@ -13,7 +13,7 @@ service:
     externalPort: 80
     internalPort: 80
 mysql:
-  host: mysql
-  db: dev_users
+  host: mysql-prod
+  db: prod_users
 files:
   servingUrl: http://dummy-pdf-or-png-service:3000
