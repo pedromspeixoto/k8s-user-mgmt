@@ -54,7 +54,7 @@ For the infrastructure to support the application:
 
 For the CI/CD pipeline:
 
-1. GitHub actions as the CI/CD tool to build and publish the docker image to dockerhub
+1. GitHub actions as the CI tool to build and publish the docker image to dockerhub
 2. ArgoCD as the CD tool to deploy the application to the kubernetes cluster
 
 Please find below a short diagram on how the CI/CD works for this project.
@@ -74,13 +74,28 @@ Please find below a short diagram on how the CI/CD works for this project.
 
 ### Steps
 
-1. Create all underlying infrastructure using terraform
+**1. Create all underlying infrastructure using terraform**
 
 ```bash
 make infra
 ```
 
-2. Access ArgoCD to view the deployed applications
+**2. Accessing and viewing the deployed application**
+
+The application is deployed behind an NGINX ingress controller and can be accessed like below
+(only the user-mgmt application is exposed to outside the cluster):
+
+```bash
+curl -X GET http://localhost/user-mgmt/health
+```
+
+_Notes:_
+
+Please note that it can take some time during the initial setup for the application to be running.
+
+**3. Viewing the application deployments in ArgoCD**
+
+To view all the application deployments, we can port-forward ArgoCD UI and view the status of the resources deployed:
 
 ```bash
 kubectl port-forward svc/argocd-server -n argocd 5555:80
@@ -88,7 +103,7 @@ kubectl port-forward svc/argocd-server -n argocd 5555:80
 
 The ArgoCD UI can then be accessed at `http://localhost:5555`.
 
-**_Notes:_**
+_Notes:_
 
 The default username for ArgoCD is `admin`. The password is auto-generated 
 and we can get it with the following command:
@@ -97,10 +112,7 @@ and we can get it with the following command:
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 ```
 
-3. Whenever a change is made to any of the services, the CI will build a new image and commit the new identified 
-to the repo and ArgoCD will deploy the new version of the application to the kubernetes cluster automatically.
-
-4. To destroy the infrastructure you can run the below command
+**4. To destroy the infrastructure you can run the below command**
 
 ```bash
 make infra-destroy
