@@ -28,21 +28,21 @@ type DbClient struct {
 
 func NewDbClient(deps dbDeps) (*gorm.DB, error) {
 
-	dsn := deps.Config.MySQLUrl()
-
-	// connect to default instance (to create db)
-	dbUrl := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
-		deps.Config.MySQLUser,
+	// connect to root instance (to create db) - this would need to be changed in a real world scenario
+	createDbUrl := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?parseTime=true",
+		"root",
 		deps.Config.MySQLPassword,
 		deps.Config.MySQLHost,
 		deps.Config.MySQLPort,
 		"mysql",
 	)
 
-	err := createDb(dbUrl, deps.Config.MySQLDBName)
+	err := createDb(createDbUrl, deps.Config.MySQLDBName)
 	if err != nil {
 		log.Fatalf("error creating database: %v", err)
 	}
+
+	dsn := deps.Config.MySQLUrl()
 
 	err = migrateDb(dsn)
 	if err != nil {
