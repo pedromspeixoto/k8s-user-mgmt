@@ -13,7 +13,7 @@
 
 The purpose of this repository was to create a microservice to manage users which allows each user to 
 submit one or more files (for the purpose of this repo the file will be fetched from the `dummy-pdf-or-png` service) 
-and saved in a bucket.
+and saved in the MySQL database.
 
 The microservice implemented exposes the following endpoints:
 

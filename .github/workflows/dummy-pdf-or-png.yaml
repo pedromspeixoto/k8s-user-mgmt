@@ -1,4 +1,4 @@
-name: CI
+name: dummy-pdf-or-png-ci
 
 on:
   push:
