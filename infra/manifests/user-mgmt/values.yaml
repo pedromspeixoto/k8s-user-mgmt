@@ -2,7 +2,7 @@ appname: user-mgmt-app
 replicaCount: 2
 image:
   repository: pedropeixoto6/user-mgmt-api
-  tag: 3b49f736ca924d29821bf2f5bf708192285ce41e
+  tag: 1a2cb1e9ac8ed073205c7eb5ae8faf786384271d
   pullPolicy: IfNotPresent
 service:
   name: user-mgmt-service
