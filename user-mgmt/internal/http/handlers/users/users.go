@@ -48,6 +48,7 @@ func (h userServiceHandler) Routes() chi.Router {
 	// users
 	r.With(middlewares.Paginate).Get("/", h.ListUsers)
 	r.Post("/", h.CreateUser)
+	r.Put("/", h.CreateUser)
 	r.Get("/{userId}", h.GetUser)
 	r.Delete("/{userId}", h.DeleteUser)
 
